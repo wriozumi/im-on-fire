@@ -1,0 +1,22 @@
+.chartSection {
+    grid-column: 2 / 3;
+    grid-row: 1 / 4;
+}
+
+.chartContainer {
+    height: 400px;
+}
+
+.keyMetrics p {
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    border-radius: 4px;
+    background-color: var(--secondary-color);
+}
+
+.keyMetrics span {
+    font-weight: bold;
+    color: var(--primary-color);
+    float: right;
+}

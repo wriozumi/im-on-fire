@@ -1,0 +1,32 @@
+.scenarioSection input[type="range"] {
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.scenarioSection input[type="range"]::-webkit-slider-runnable-track {
+    background: var(--primary-color);
+    height: 0.5rem;
+    border-radius: 0.25rem;
+}
+
+.scenarioSection input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    margin-top: -4px;
+    background: #fff;
+    border: 2px solid var(--primary-color);
+    height: 1.5rem;
+    width: 1.5rem;
+    border-radius: 50%;
+}
+
+.scenarioImpact, .insight {
+    background-color: #e7f3fe;
+    border-left: 4px solid #2196F3;
+    padding: 1rem;
+    margin-top: 1rem;
+    border-radius: 4px;
+}
