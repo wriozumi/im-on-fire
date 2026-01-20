@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIRE Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>FIRE Calculator</h1>
+    </header>
+    <main>
+        <section id="inputs">
+            <h2>Your Numbers</h2>
+            <label for="age">Age</label>
+            <input type="number" id="age" value="30">
+            <label for="cash">Net Worth (Cash)</label>
+            <input type="number" id="cash" value="10000">
+            <label for="investments">Net Worth (Investments)</label>
+            <input type="number" id="investments" value="90000">
+            <label for="net-income">Annual Net Income</label>
+            <input type="number" id="net-income" value="80000">
+            <label for="spending">Annual Spending</label>
+            <input type="number" id="spending" value="40000">
+        </section>
+        <section id="assumptions">
+            <h2>Assumptions</h2>
+            <label for="return-rate">Expected Real Return</label>
+            <input type="range" id="return-rate" min="0" max="15" value="7" step="0.1">
+            <span id="return-rate-value">7%</span>
+            <label for="swr">Safe Withdrawal Rate</label>
+            <input type="range" id="swr" min="2" max="6" value="4" step="0.1">
+            <span id="swr-value">4%</span>
+        </section>
+        <section id="results">
+            <h2>Your FIRE Journey</h2>
+            <div id="chart-container">
+                <canvas id="fire-chart"></canvas>
+            </div>
+            <div id="key-metrics">
+                <p>Your FIRE Number: <span id="fire-number">$1,000,000</span></p>
+                <p>Years to FI: <span id="years-to-fi">15.4</span></p>
+                <p>FIRE Age: <span id="fire-age">45</span></p>
+            </div>
+        </section>
+        <section id="scenarios">
+            <h2>Scenarios & Insights</h2>
+            <label for="spending-scenario">Adjust Spending</label>
+            <input type="range" id="spending-scenario" min="-50" max="50" value="0" step="1">
+            <span id="spending-scenario-value">+$0</span>
+            <p id="scenario-impact"></p>
+            <p id="insight"></p>
+        </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
