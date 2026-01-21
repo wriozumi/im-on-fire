@@ -89,7 +89,7 @@ const ChartDisplay = ({ results }) => {
       <div className={styles.keyMetrics}>
         <p>Your FIRE Number: <span>${results.fireNumber.toLocaleString()}</span></p>
         <p>Years to FI: <span>{results.yearsToFi.toFixed(1)}</span></p>
-        <p>FIRE Age: <span>{results.fireAge}</span></p>
+        <p>FIRE Age: <span>{results.fireAge.toFixed(1)}</span></p>
       </div>
     </section>
   );

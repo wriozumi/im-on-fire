@@ -12,17 +12,30 @@ export const calculateFireJourney = (params) => {
         return { fireNumber, yearsToFi: 0, fireAge: age, chartLabels, chartData };
     }
 
+    const annualSavings = netIncome - spending;
+    if (annualSavings <= 0 && (netWorth * expectedReturn < -annualSavings)) {
+        // If savings are negative and investment gains don't cover the deficit, FI is unreachable.
+        return { fireNumber, yearsToFi: MAX_YEARS, fireAge: age + MAX_YEARS, chartLabels, chartData };
+    }
+
     for (let i = 1; i <= MAX_YEARS; i++) {
-        currentNetWorth = currentNetWorth * (1 + expectedReturn) + (netIncome - spending);
+        const netWorthAtStartOfYear = currentNetWorth;
+        currentNetWorth = currentNetWorth * (1 + expectedReturn) + annualSavings;
         chartLabels.push(age + i);
         chartData.push(currentNetWorth);
+
         if (currentNetWorth >= fireNumber) {
-            yearsToFi = i;
+            const growthInFinalYear = currentNetWorth - netWorthAtStartOfYear;
+            const requiredGrowth = fireNumber - netWorthAtStartOfYear;
+            const fractionOfYear = requiredGrowth > 0 ? requiredGrowth / growthInFinalYear : 0;
+            yearsToFi = (i - 1) + fractionOfYear;
             break;
         }
     }
 
-    if (yearsToFi === 0 && currentNetWorth < fireNumber) yearsToFi = MAX_YEARS;
+    if (yearsToFi === 0 && currentNetWorth < fireNumber) {
+        yearsToFi = MAX_YEARS;
+    }
     const fireAge = age + yearsToFi;
     return { fireNumber, yearsToFi, fireAge, chartLabels, chartData };
 };
@@ -50,6 +63,17 @@ export const generateInsights = (params, baseResults) => {
     if (coastFireAge > params.age && coastFireAge < baseResults.fireAge) {
         insights.push(`You could reach Coast FIRE by age ${coastFireAge}, meaning you'd only need to cover your expenses until your investments grow to your FIRE number.`);
     }
+
+    // Insight 4: Spending vs. FIRE Number
+    const spendingReduction = 1000;
+    const fireNumberReduction = spendingReduction / params.swr;
+    insights.push(`Every $${spendingReduction.toLocaleString()} you cut from annual spending reduces your FIRE number by $${fireNumberReduction.toLocaleString()}.`);
+
+    // Insight 5: The Coffee Effect
+    const dailySpend = 5;
+    const annualSpend = dailySpend * 365;
+    const coffeeFireNumber = annualSpend / params.swr;
+    insights.push(`A daily $${dailySpend} habit costs $${annualSpend.toLocaleString()} a year, increasing your FIRE number by $${coffeeFireNumber.toLocaleString()}.`);
 
     return insights.length > 0 ? insights[Math.floor(Math.random() * insights.length)] : "No insights available.";
 };

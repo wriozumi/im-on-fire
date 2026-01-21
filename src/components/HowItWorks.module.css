@@ -1,0 +1,51 @@
+.toggleButton {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    text-align: left;
+}
+
+.toggleButton h2 {
+    margin: 0;
+    border: none;
+}
+
+.content {
+    margin-top: 1rem;
+}
+
+.content h4 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+.content ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.content li {
+    margin-bottom: 0.5rem;
+}
+
+.content code {
+    background-color: var(--secondary-color);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+.disclaimer {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: #666;
+    border-top: 1px solid var(--secondary-color);
+    padding-top: 1rem;
+}
