@@ -10,7 +10,9 @@ import {
   Tooltip,
   Legend,
   Filler,
+  TooltipItem,
 } from 'chart.js';
+import { FireResults } from '../types';
 import styles from './ChartDisplay.module.css';
 import commonStyles from './common.module.css';
 
@@ -25,22 +27,27 @@ ChartJS.register(
   Filler
 );
 
-const ChartDisplay = ({ results }) => {
-  const { chartLabels, chartData, fireNumber } = results;
+interface Props {
+  results: FireResults;
+}
+
+const ChartDisplay: React.FC<Props> = ({ results }) => {
+  const { chartData } = results;
 
   const data = {
-    labels: chartLabels,
+    labels: chartData.map(d => d.age.toFixed(0)),
     datasets: [
       {
         label: 'Net Worth',
-        data: chartData,
+        data: chartData.map(d => d.netWorth),
         borderColor: 'rgb(75, 192, 192)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
         tension: 0.1,
         fill: true,
       },
       {
         label: 'FIRE Target',
-        data: Array(chartLabels.length).fill(fireNumber),
+        data: chartData.map(d => d.fireTarget),
         borderColor: 'rgb(255, 99, 132)',
         borderDash: [5, 5],
         pointRadius: 0,
@@ -55,14 +62,14 @@ const ChartDisplay = ({ results }) => {
       y: {
         beginAtZero: true,
         ticks: {
-          callback: (value) => '$' + value.toLocaleString(),
+          callback: (value: number | string) => '$' + value.toLocaleString(),
         },
       },
     },
     plugins: {
       tooltip: {
         callbacks: {
-          label: (context) => {
+          label: (context: TooltipItem<'line'>) => {
             let label = context.dataset.label || '';
             if (label) {
               label += ': ';
@@ -88,7 +95,7 @@ const ChartDisplay = ({ results }) => {
       </div>
       <div className={styles.keyMetrics}>
         <p>Your FIRE Number: <span>${results.fireNumber.toLocaleString()}</span></p>
-        <p>Years to FI: <span>{results.yearsToFi.toFixed(1)}</span></p>
+        <p>Years to FI: <span>{results.yearsToFire.toFixed(1)}</span></p>
         <p>FIRE Age: <span>{results.fireAge.toFixed(1)}</span></p>
       </div>
     </section>
